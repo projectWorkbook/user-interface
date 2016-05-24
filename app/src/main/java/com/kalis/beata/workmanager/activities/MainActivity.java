@@ -17,10 +17,14 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.GridView;
 
+import com.kalis.beata.workmanager.DAO.EventDAO;
+import com.kalis.beata.workmanager.DAO.TaskDAO;
 import com.kalis.beata.workmanager.R;
 import com.kalis.beata.workmanager.adapters.PanelAdapter;
 import com.kalis.beata.workmanager.database.DBHelper;
+import com.kalis.beata.workmanager.models.Event;
 import com.kalis.beata.workmanager.models.MenuOption;
+import com.kalis.beata.workmanager.models.Task;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -93,6 +97,11 @@ public class MainActivity extends AppCompatActivity
         gridView = (GridView)findViewById(R.id.gridView);
         PanelAdapter panelAdapter = new PanelAdapter(menu);
         gridView.setAdapter(panelAdapter);
+
+       /// Event e = new Event("obiad" , "dom", "12/02/2014" , "9:03" , "15/02/2014" , "9:05" , "gotowanie");
+      //  EventDAO eventDAO = new EventDAO(this);
+      //  eventDAO.saveEvent(e);
+
     }
 
     public void setListeners() {

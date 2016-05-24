@@ -40,7 +40,7 @@ public class ListEventsActivity extends AppCompatActivity {
 
         EventDAO eventDAO = new EventDAO(this);
         //TODO: pobrac z bazy eventy po dacie
-        List<Event> events = eventDAO.getEventsInDay(new Date());
+        List<Event> events = eventDAO.getAllEvents();
         EventAdapter eventAdapter = new EventAdapter(events);
         ListView listView = (ListView)findViewById(R.id.eventListView);
         listView.setAdapter(eventAdapter);

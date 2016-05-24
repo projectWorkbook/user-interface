@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.RatingBar;
+import android.widget.Toast;
 
 import com.kalis.beata.workmanager.DAO.TaskDAO;
 import com.kalis.beata.workmanager.R;
@@ -55,6 +56,9 @@ public class NewTaskActivity extends AppCompatActivity {
                 Task t = new Task(name.getText().toString(), ratingBar.getRating(), date, desc.getText().toString());
                 taskDAO.saveTask(t);
                 //TODO: dodac nowe zadanie do bazy danych
+
+                Toast.makeText(getApplicationContext(), "Dodano nowe zadanie!", Toast.LENGTH_LONG).show();
+
 
             }
         });
