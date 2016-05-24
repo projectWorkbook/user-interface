@@ -123,6 +123,7 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void createNewTask() {
+        System.out.println("cos");
         Intent i = new Intent(this, NewTaskActivity.class);
         startActivity(i);
     }

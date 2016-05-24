@@ -53,14 +53,17 @@ public class ListTasksActivity extends AppCompatActivity {
         TaskDAO taskDAO = new TaskDAO(this);
         List<Task> tasks = taskDAO.getAllTasks();
         TaskAdapter taskAdapter = new TaskAdapter(tasks);
-        ListView listView = (ListView)findViewById(R.id.taskListView);
+
+        final ListView listView = (ListView)findViewById(R.id.taskListView);
         listView.setAdapter(taskAdapter);
 
+        Log.e("almost", "we're almost in");
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Log.i("Done", "we're in");
-                    Toast.makeText(ListTasksActivity.this, "Dddd", Toast.LENGTH_LONG).show();
+                Task task = (Task)listView.getSelectedItem();
+                Intent i = new Intent(ListTasksActivity.this, NewEventActivity.class);
+                startActivity(i);
             }
         });
     }
@@ -84,12 +87,18 @@ public class ListTasksActivity extends AppCompatActivity {
         return true;
     }
 
+    @Override
+    public void onResume(){
+        super.onResume();
+        setListView();
+
+    }
+
     public void setListeners() {
 
         fab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: add new task to database
                 createNewTask();
             }
         });

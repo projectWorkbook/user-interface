@@ -4,8 +4,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ListView;
 
+import com.kalis.beata.workmanager.DAO.EventDAO;
 import com.kalis.beata.workmanager.R;
+import com.kalis.beata.workmanager.adapters.EventAdapter;
+import com.kalis.beata.workmanager.adapters.TaskAdapter;
+import com.kalis.beata.workmanager.models.Event;
+
+import java.util.List;
 
 public class NewEventActivity extends AppCompatActivity {
 
@@ -36,4 +43,6 @@ public class NewEventActivity extends AppCompatActivity {
         }
         return true;
     }
+
+
 }

@@ -51,13 +51,14 @@ public class NewTaskActivity extends AppCompatActivity {
                 int month = datePicker.getMonth() + 1;
                 int year = datePicker.getYear();
                 String date = day+"/"+month+"/"+year;
-               // System.out.println(date);
+
                 TaskDAO taskDAO = new TaskDAO(getApplicationContext());
                 Task t = new Task(name.getText().toString(), ratingBar.getRating(), date, desc.getText().toString());
                 taskDAO.saveTask(t);
-                //TODO: dodac nowe zadanie do bazy danych
+
 
                 Toast.makeText(getApplicationContext(), "Dodano nowe zadanie!", Toast.LENGTH_LONG).show();
+                onBackPressed();
 
 
             }

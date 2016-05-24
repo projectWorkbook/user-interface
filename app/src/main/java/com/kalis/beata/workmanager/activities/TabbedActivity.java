@@ -14,6 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -94,7 +95,7 @@ public class TabbedActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_tabbed, container, false);
-            ListView listView = (ListView)rootView.findViewById(R.id.listView);
+            final ListView listView = (ListView)rootView.findViewById(R.id.listView);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             FloatingActionButton fab = (FloatingActionButton)rootView.findViewById(R.id.fabAddNew);
 
@@ -106,6 +107,15 @@ public class TabbedActivity extends AppCompatActivity {
                 List<Task> taskList = taskDAO.getAllTasks();
                 TaskAdapter taskAdapter = new TaskAdapter(taskList);
                 listView.setAdapter(taskAdapter);
+
+                listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                        Task task = (Task) listView.getSelectedItem();
+                        Intent i = new Intent(getContext(), NewTaskActivity.class);
+                        startActivity(i);
+                    }
+                });
 
                 fab.setOnClickListener(new View.OnClickListener() {
                     @Override
