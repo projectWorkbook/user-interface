@@ -1,6 +1,8 @@
 package com.kalis.beata.workmanager.activities;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -94,6 +96,7 @@ public class TabbedActivity extends AppCompatActivity {
             View rootView = inflater.inflate(R.layout.fragment_tabbed, container, false);
             ListView listView = (ListView)rootView.findViewById(R.id.listView);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
+            FloatingActionButton fab = (FloatingActionButton)rootView.findViewById(R.id.fabAddNew);
 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
                 textView.setText("List of tasks: ");
@@ -104,6 +107,13 @@ public class TabbedActivity extends AppCompatActivity {
                 TaskAdapter taskAdapter = new TaskAdapter(taskList);
                 listView.setAdapter(taskAdapter);
 
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        createNewTask();
+                    }
+                });
+
             }
 
             else {
@@ -112,19 +122,37 @@ public class TabbedActivity extends AppCompatActivity {
                 List<Event> events;
                 EventDAO eventDAO = new EventDAO(getContext());
                 if(TabbedActivity.menuOption.equals("Today")) {
-                    events = eventDAO.getEventsInDay(new Date());
+                   // events = eventDAO.getEventsInDay(new Date());
+                    events = eventDAO.getAllEvents();
                 }
                 else
                 {
                     //TODO: pobrac z bazy eventy z przyszlego tygodnia
-                    events = eventDAO.getEventsInDay(new Date());
+                   // events = eventDAO.getEventsInDay(new Date());
+                    events = eventDAO.getAllEvents();
                 }
                 EventAdapter eventAdapter = new EventAdapter(events);
                 listView.setAdapter(eventAdapter);
+                fab.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        createNewEvent();
+                    }
+                });
 
             }
 
             return rootView;
+        }
+
+        public void createNewEvent() {
+            Intent i = new Intent(getContext(), NewEventActivity.class);
+            startActivity(i);
+        }
+
+        public void createNewTask() {
+            Intent i = new Intent(getContext(), NewTaskActivity.class);
+            startActivity(i);
         }
     }
 
