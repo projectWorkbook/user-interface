@@ -5,10 +5,13 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.kalis.beata.workmanager.DAO.TaskDAO;
 import com.kalis.beata.workmanager.R;
@@ -31,27 +34,37 @@ public class ListTasksActivity extends AppCompatActivity {
 
         initiateComponents();
         setListeners();
+        setListView();
+
     }
 
-    public void initiateComponents() {
+    private void initiateComponents() {
         Bundle bundle = getIntent().getExtras();
 
         String data = bundle.getString(CalendarActivity.KEY_DATE);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(data);
         actionBar.setDisplayHomeAsUpEnabled(true);
+        fab3 = (FloatingActionButton)findViewById(R.id.addTaskFab);
 
+    }
 
+    private void setListView(){
         TaskDAO taskDAO = new TaskDAO(this);
         List<Task> tasks = taskDAO.getAllTasks();
-        //TODO: get list of tasks from database by date
-
-        fab3 = (FloatingActionButton)findViewById(R.id.addTaskFab);
         TaskAdapter taskAdapter = new TaskAdapter(tasks);
         ListView listView = (ListView)findViewById(R.id.taskListView);
         listView.setAdapter(taskAdapter);
 
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Log.i("Done", "we're in");
+                    Toast.makeText(ListTasksActivity.this, "Dddd", Toast.LENGTH_LONG).show();
+            }
+        });
     }
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {

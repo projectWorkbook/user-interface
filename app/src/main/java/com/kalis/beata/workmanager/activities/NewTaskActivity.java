@@ -37,7 +37,7 @@ public class NewTaskActivity extends AppCompatActivity {
       // addNewTask = (ImageButton)findViewById(R.id.taskImageButton);
     }
 
-    public void setListeners() {
+    private void setListeners() {
         fabAddNewTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -59,6 +59,8 @@ public class NewTaskActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
