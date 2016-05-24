@@ -19,6 +19,7 @@ import android.widget.GridView;
 
 import com.kalis.beata.workmanager.R;
 import com.kalis.beata.workmanager.adapters.PanelAdapter;
+import com.kalis.beata.workmanager.database.DBHelper;
 import com.kalis.beata.workmanager.models.MenuOption;
 
 import java.text.SimpleDateFormat;
@@ -52,6 +53,9 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void initiateComponents() {
+
+       // DBHelper dbHelper = new DBHelper(this);
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setTitle(R.string.yourPanel);

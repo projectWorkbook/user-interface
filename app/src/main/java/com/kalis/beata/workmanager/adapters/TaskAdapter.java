@@ -38,7 +38,7 @@ public class TaskAdapter  extends BaseAdapter {
         }
         ViewHolder holder = (ViewHolder) convertView.getTag();
         holder.name.setText(item.getName());
-        holder.date.setText(item.getDate());
+        holder.date.setText(item.getEndDate());
         return convertView;
     }
 

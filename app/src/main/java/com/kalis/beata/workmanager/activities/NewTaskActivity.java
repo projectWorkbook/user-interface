@@ -6,14 +6,21 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.RatingBar;
 
+import com.kalis.beata.workmanager.DAO.TaskDAO;
 import com.kalis.beata.workmanager.R;
+import com.kalis.beata.workmanager.models.Task;
 
 public class NewTaskActivity extends AppCompatActivity {
 
-    private ImageButton addNewTask;
+    //private ImageButton addNewTask;
+    private FloatingActionButton fabAddNewTask;
+  //  private TaskDAO taskDAO = new TaskDAO(this);
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,14 +33,29 @@ public class NewTaskActivity extends AppCompatActivity {
 
     public void initiateComponents() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-       addNewTask = (ImageButton)findViewById(R.id.taskImageButton);
+        fabAddNewTask = (FloatingActionButton)findViewById(R.id.fabNewTask);
+      // addNewTask = (ImageButton)findViewById(R.id.taskImageButton);
     }
 
     public void setListeners() {
-        addNewTask.setOnClickListener(new View.OnClickListener() {
+        fabAddNewTask.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                EditText name = (EditText) findViewById(R.id.nameEditText);
+                EditText desc = (EditText) findViewById(R.id.descEditText);
+                RatingBar ratingBar = (RatingBar) findViewById(R.id.taskRatingBar);
+                DatePicker datePicker = (DatePicker) findViewById(R.id.taskDatePicker);
+                int day = datePicker.getDayOfMonth();
+                int month = datePicker.getMonth() + 1;
+                int year = datePicker.getYear();
+                String date = day+"/"+month+"/"+year;
+               // System.out.println(date);
+                TaskDAO taskDAO = new TaskDAO(getApplicationContext());
+                Task t = new Task(name.getText().toString(), ratingBar.getRating(), date, desc.getText().toString());
+                taskDAO.saveTask(t);
                 //TODO: dodac nowe zadanie do bazy danych
+
             }
         });
     }

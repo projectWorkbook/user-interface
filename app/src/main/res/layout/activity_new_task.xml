@@ -29,7 +29,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/taskRatingBar"
-        android:numStars="5"
+        android:numStars="7"
         android:stepSize="0.5"
         android:layout_below="@+id/descEditText"
         android:layout_centerHorizontal="true"
@@ -44,12 +44,14 @@
         android:layout_alignParentStart="true"
         android:calendarViewShown="false" />
 
-    <ImageButton
+
+    <android.support.design.widget.FloatingActionButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/taskImageButton"
+        android:id="@+id/fabNewTask"
         android:layout_below="@+id/taskDatePicker"
         android:layout_alignParentEnd="true"
-        android:src="@drawable/check2" />
+        android:src="@drawable/check2"
+        />
 
 </RelativeLayout>

@@ -53,6 +53,8 @@ public class CalendarActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         CalendarView calendarView = (CalendarView)findViewById(R.id.calendarView);
+
+
         calendarView.setOnDateChangeListener(new CalendarView.OnDateChangeListener() {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
@@ -67,14 +69,14 @@ public class CalendarActivity extends AppCompatActivity {
     public void openListView(String data) {
 
         if(tableName.equals("Tasks")) {
-            System.out.println("task");
+         //   System.out.println("task");
             Intent i = new Intent(this, ListTasksActivity.class);
             i.putExtra(KEY_DATE, data);
             startActivity(i);
 
         }
         else {
-            System.out.println("event");
+          //  System.out.println("event");
             Intent i = new Intent(this, ListEventsActivity.class);
             i.putExtra(KEY_DATE, data);
             startActivity(i);

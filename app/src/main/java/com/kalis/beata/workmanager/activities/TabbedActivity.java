@@ -15,14 +15,24 @@ import android.view.ViewGroup;
 import android.widget.ListView;
 import android.widget.TextView;
 
+import com.kalis.beata.workmanager.DAO.EventDAO;
+import com.kalis.beata.workmanager.DAO.TaskDAO;
 import com.kalis.beata.workmanager.R;
+import com.kalis.beata.workmanager.adapters.EventAdapter;
+import com.kalis.beata.workmanager.adapters.TaskAdapter;
+import com.kalis.beata.workmanager.models.Event;
 import com.kalis.beata.workmanager.models.MenuOption;
+import com.kalis.beata.workmanager.models.Task;
+
+import java.util.Date;
+import java.util.List;
 
 public class TabbedActivity extends AppCompatActivity {
 
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
-    private MenuOption menuOption;
+    public static MenuOption menuOption;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -87,17 +97,31 @@ public class TabbedActivity extends AppCompatActivity {
 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
                 textView.setText("List of tasks: ");
-                //TODO: pobrac z bazy danych taski
+                TaskDAO taskDAO = new TaskDAO(getContext());
+                //TODO: pobrac z bazy danych taski po dacie a nie wszystkie
 
-               // List<Task> taskList = getFromDatabase();
-              //  TaskAdapter taskAdapter = new TaskAdapter(taskList);
-               // listView.setAdapter(taskAdapter);
+                List<Task> taskList = taskDAO.getAllTasks();
+                TaskAdapter taskAdapter = new TaskAdapter(taskList);
+                listView.setAdapter(taskAdapter);
 
             }
 
             else {
                 textView.setText("List of events: ");
-                //TODO: pobrac z bazy danych eventy
+                //TODO: pobrac z bazy danych eventy po dacie
+                List<Event> events;
+                EventDAO eventDAO = new EventDAO(getContext());
+                if(TabbedActivity.menuOption.equals("Today")) {
+                    events = eventDAO.getEventsInDay(new Date());
+                }
+                else
+                {
+                    //TODO: pobrac z bazy eventy z przyszlego tygodnia
+                    events = eventDAO.getEventsInDay(new Date());
+                }
+                EventAdapter eventAdapter = new EventAdapter(events);
+                listView.setAdapter(eventAdapter);
+
             }
 
             return rootView;
