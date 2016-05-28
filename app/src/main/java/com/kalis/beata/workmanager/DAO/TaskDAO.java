@@ -53,9 +53,9 @@ public class TaskDAO {
         values.put(DBHelper.TS_PROGRESS, task.getProgress());
 
         if(task.getId()==0)
-            mDatabase.insert(DBHelper.TABLE_TASKS, null, values);
+          task.setId(mDatabase.insert(DBHelper.TABLE_TASKS, null, values));
         else
-            mDatabase.update(DBHelper.TABLE_TASKS,values,DBHelper.TS_ID + " = " + task.getId(),null);
+        mDatabase.update(DBHelper.TABLE_TASKS,values,DBHelper.TS_ID + " = " + task.getId(),null);
 
     }
 

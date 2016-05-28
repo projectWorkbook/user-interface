@@ -59,6 +59,7 @@ public class ListTasksActivity extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                System.out.println("mije id: " + position);
                 Log.i("Done", "we're in");
                     Toast.makeText(ListTasksActivity.this, "Dddd", Toast.LENGTH_LONG).show();
             }
