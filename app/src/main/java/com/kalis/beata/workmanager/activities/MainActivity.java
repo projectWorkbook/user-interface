@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity
 
     public void initiateComponents() {
 
-       // DBHelper dbHelper = new DBHelper(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -2,12 +2,14 @@ package com.kalis.beata.workmanager.activities;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.kalis.beata.workmanager.DAO.EventDAO;
@@ -29,6 +31,7 @@ public class ListEventsActivity extends AppCompatActivity {
 
         initiateComponents();
         setListeners();
+        setListView();
     }
 
     public void initiateComponents() {
@@ -39,14 +42,14 @@ public class ListEventsActivity extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
 
         EventDAO eventDAO = new EventDAO(this);
-        //TODO: pobrac z bazy eventy po dacie
+      //TODO: pobrac z bazy eventy po dacie
         List<Event> events = eventDAO.getEventsInDay(12,02,2014);
        // List<Event> events = eventDAO.getAllEvents();
         EventAdapter eventAdapter = new EventAdapter(events);
         ListView listView = (ListView)findViewById(R.id.eventListView);
         listView.setAdapter(eventAdapter);
 
-        fabNewEvent = (FloatingActionButton)findViewById(R.id.eventAddFab);
+       fabNewEvent = (FloatingActionButton)findViewById(R.id.eventAddFab);
 
 
     }
@@ -65,6 +68,9 @@ public class ListEventsActivity extends AppCompatActivity {
                 break;
             case R.id.action_settings:
                 break;
+            case R.id.help:
+                Snackbar.make(getCurrentFocus(), "List of your events!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
         }
         return true;
     }
@@ -74,7 +80,6 @@ public class ListEventsActivity extends AppCompatActivity {
         fabNewEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: add new event to database
                 createNewEvent();
             }
         });
@@ -83,5 +88,20 @@ public class ListEventsActivity extends AppCompatActivity {
     public void createNewEvent() {
         Intent i = new Intent(this, NewEventActivity.class);
         startActivity(i);
+    }
+
+    private void setListView(){
+        EventDAO eventDAO = new EventDAO(this);
+        List<Event> events = eventDAO.getAllEvents();
+        EventAdapter eventAdapter = new EventAdapter(events);
+        ListView listView = (ListView)findViewById(R.id.eventListView);
+        listView.setAdapter(eventAdapter);
+
+        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+            }
+        });
     }
 }

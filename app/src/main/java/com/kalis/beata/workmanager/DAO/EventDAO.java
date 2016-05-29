@@ -54,7 +54,7 @@ public class EventDAO {
         values.put(DBHelper.EV_INFO, event.getInfo());
 
         if(event.getId()==0)
-            mDatabase.insert(DBHelper.TABLE_EVENTS, null, values);
+            event.setId(mDatabase.insert(DBHelper.TABLE_EVENTS, null, values));
         else
             mDatabase.update(DBHelper.TABLE_EVENTS,values,DBHelper.EV_ID + " = " + event.getId(),null);
 

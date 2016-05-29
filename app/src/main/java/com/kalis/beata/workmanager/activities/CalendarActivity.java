@@ -1,5 +1,6 @@
 package com.kalis.beata.workmanager.activities;
 
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -39,6 +40,9 @@ public class CalendarActivity extends AppCompatActivity {
                 break;
             case R.id.action_settings:
                 break;
+            case R.id.help:
+                Snackbar.make(getCurrentFocus(), "Choose a day!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
         }
         return true;
     }
@@ -69,14 +73,12 @@ public class CalendarActivity extends AppCompatActivity {
     public void openListView(String data) {
 
         if(tableName.equals("Tasks")) {
-         //   System.out.println("task");
             Intent i = new Intent(this, ListTasksActivity.class);
             i.putExtra(KEY_DATE, data);
             startActivity(i);
 
         }
         else {
-          //  System.out.println("event");
             Intent i = new Intent(this, ListEventsActivity.class);
             i.putExtra(KEY_DATE, data);
             startActivity(i);

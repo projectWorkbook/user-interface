@@ -2,6 +2,7 @@ package com.kalis.beata.workmanager.activities;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,16 +54,17 @@ public class ListTasksActivity extends AppCompatActivity {
         TaskDAO taskDAO = new TaskDAO(this);
         List<Task> tasks = taskDAO.getAllTasks();
         TaskAdapter taskAdapter = new TaskAdapter(tasks);
-        ListView listView = (ListView)findViewById(R.id.taskListView);
+
+        final ListView listView = (ListView)findViewById(R.id.taskListView);
         listView.setAdapter(taskAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                System.out.println("mije id: " + position);
-                Log.i("Done", "we're in");
-                    Toast.makeText(ListTasksActivity.this, "Dddd", Toast.LENGTH_LONG).show();
-            }
+               Task task = (Task)listView.getSelectedItem();
+                Intent i = new Intent(ListTasksActivity.this, NewTaskActivity.class);
+                startActivity(i);
+          }
         });
     }
 
@@ -81,8 +83,18 @@ public class ListTasksActivity extends AppCompatActivity {
                 break;
             case R.id.action_settings:
                 break;
+            case R.id.help:
+                Snackbar.make(getCurrentFocus(), "List of your tasks!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
         }
         return true;
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        setListView();
+
     }
 
     public void setListeners() {
@@ -90,7 +102,6 @@ public class ListTasksActivity extends AppCompatActivity {
         fab3.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //TODO: add new task to database
                 createNewTask();
             }
         });

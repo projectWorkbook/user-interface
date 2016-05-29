@@ -1,7 +1,8 @@
 package com.kalis.beata.workmanager.activities;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.design.widget.Snackbar;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -33,7 +34,12 @@ public class NewEventActivity extends AppCompatActivity {
                 break;
             case R.id.action_settings:
                 break;
+            case R.id.help:
+                Snackbar.make(getCurrentFocus(), "You can add new event!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
         }
         return true;
     }
+
+
 }
