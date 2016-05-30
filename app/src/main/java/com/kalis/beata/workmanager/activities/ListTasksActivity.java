@@ -26,6 +26,11 @@ import java.util.List;
 public class ListTasksActivity extends AppCompatActivity {
 
     private FloatingActionButton fab3;
+    private List<Task> tasks;
+    private TaskDAO taskDAO;
+    private ListView tasksList;
+    private TaskAdapter taskAdapter;
+
 
 
     @Override
@@ -47,28 +52,32 @@ public class ListTasksActivity extends AppCompatActivity {
         actionBar.setTitle(data);
         actionBar.setDisplayHomeAsUpEnabled(true);
         fab3 = (FloatingActionButton)findViewById(R.id.addTaskFab);
+        taskDAO = new TaskDAO(this);
+        tasks = taskDAO.getAllTasks();
 
     }
 
     private void setListView(){
-        TaskDAO taskDAO = new TaskDAO(this);
-        List<Task> tasks = taskDAO.getAllTasks();
-        TaskAdapter taskAdapter = new TaskAdapter(tasks);
 
-        final ListView listView = (ListView)findViewById(R.id.taskListView);
-        listView.setAdapter(taskAdapter);
+        taskAdapter = new TaskAdapter(tasks);
+        tasksList = (ListView)findViewById(R.id.taskListView);
+        tasksList.setAdapter(taskAdapter);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        tasksList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Task task = (Task) listView.getItemAtPosition(position);
-                // Log.e("Task", task.getName());
-
+                Task task = (Task) tasksList.getItemAtPosition(position);
                 Intent i = new Intent(ListTasksActivity.this, NewTaskActivity.class);
                 i.putExtra("task", task);
                 startActivity(i);
           }
         });
+    }
+
+    private void refreshTaskList(){
+        tasks = taskDAO.getAllTasks();
+        taskAdapter = new TaskAdapter(tasks);
+        tasksList.setAdapter(taskAdapter);
     }
 
 
@@ -96,7 +105,7 @@ public class ListTasksActivity extends AppCompatActivity {
     @Override
     public void onResume(){
         super.onResume();
-        setListView();
+        refreshTaskList();
 
     }
 

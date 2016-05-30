@@ -9,8 +9,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.RatingBar;
 import android.widget.Toast;
 
@@ -26,7 +24,6 @@ public class NewTaskActivity extends AppCompatActivity {
     RatingBar ratingBar;
     DatePicker datePicker;
 
-    private FloatingActionButton fabAddNewTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
