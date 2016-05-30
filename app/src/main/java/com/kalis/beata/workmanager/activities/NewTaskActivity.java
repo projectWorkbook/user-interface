@@ -19,14 +19,29 @@ import com.kalis.beata.workmanager.models.Task;
 
 public class NewTaskActivity extends AppCompatActivity {
 
-    //private ImageButton addNewTask;
+
     private FloatingActionButton fabAddNewTask;
-  //  private TaskDAO taskDAO = new TaskDAO(this);
+    EditText name;
+    EditText desc;
+    RatingBar ratingBar;
+    DatePicker datePicker;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_task);
         setTitle("New task");
+
+        name = (EditText) findViewById(R.id.nameEditText);
+        desc = (EditText) findViewById(R.id.descEditText);
+        ratingBar = (RatingBar) findViewById(R.id.taskRatingBar);
+        datePicker = (DatePicker) findViewById(R.id.taskDatePicker);
+        Task task = (Task)getIntent().getSerializableExtra("task");
+        if(task != null){
+            name.setText(task.getName());
+            desc.setText(task.getInfo());
+        }
+
 
         initiateComponents();
         setListeners();
@@ -43,10 +58,6 @@ public class NewTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                EditText name = (EditText) findViewById(R.id.nameEditText);
-                EditText desc = (EditText) findViewById(R.id.descEditText);
-                RatingBar ratingBar = (RatingBar) findViewById(R.id.taskRatingBar);
-                DatePicker datePicker = (DatePicker) findViewById(R.id.taskDatePicker);
                 int day = datePicker.getDayOfMonth();
                 int month = datePicker.getMonth() + 1;
                 int year = datePicker.getYear();

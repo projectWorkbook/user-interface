@@ -57,12 +57,14 @@ public class ListTasksActivity extends AppCompatActivity {
         final ListView listView = (ListView)findViewById(R.id.taskListView);
         listView.setAdapter(taskAdapter);
 
-        Log.e("almost", "we're almost in");
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Task task = (Task)listView.getSelectedItem();
-                Intent i = new Intent(ListTasksActivity.this, NewEventActivity.class);
+                Task task = (Task) listView.getItemAtPosition(position);
+                // Log.e("Task", task.getName());
+
+                Intent i = new Intent(ListTasksActivity.this, NewTaskActivity.class);
+                i.putExtra("task", task);
                 startActivity(i);
             }
         });
