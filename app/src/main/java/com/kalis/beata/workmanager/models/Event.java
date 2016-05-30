@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class Event implements Serializable {
 
     private String mName;
-    private int mID = 0;
+    private long mID = 0;
     private String mPlace;
     private String mStartDate;
     private String mStartTime;
@@ -37,10 +37,10 @@ public class Event implements Serializable {
         return this.mName;
     }
 
-    public void setId(int ID){
+    public void setId(long ID){
         this.mID = ID;
     }
-    public int getId(){
+    public long getId(){
         return this.mID;
     }
 

@@ -10,7 +10,7 @@ import java.io.Serializable;
 public class Task implements Serializable {
 
     private String mName;
-    private int mID;
+    private long mID;
     private float mDuration ; // czas trwania zadania
     private String mEndDate; // deadline - kiedy musimy wykonac zadanie
     private String mEndTime; // czas zakonczenia zadania?
@@ -36,10 +36,10 @@ public class Task implements Serializable {
         return this.mName;
     }
 
-    public void setId(int id){
+    public void setId(long id){
         this.mID = id;
     }
-    public int getId(){
+    public long getId(){
         return this.mID;
     }
 

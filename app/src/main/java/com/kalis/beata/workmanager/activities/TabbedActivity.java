@@ -3,6 +3,7 @@ package com.kalis.beata.workmanager.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -70,6 +71,16 @@ public class TabbedActivity extends AppCompatActivity {
                 break;
             case R.id.action_settings:
                 break;
+            case R.id.help:
+                if(menuOption.getName().equals("Today")) {
+                    Snackbar.make(getCurrentFocus(), "This are your todays' tasks and events", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+                else {
+                    Snackbar.make(getCurrentFocus(), "Tasks and events of the next week", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+                }
+
         }
         return true;
     }

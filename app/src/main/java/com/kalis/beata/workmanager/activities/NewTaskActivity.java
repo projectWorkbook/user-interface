@@ -1,6 +1,7 @@
 package com.kalis.beata.workmanager.activities;
 
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,12 +20,13 @@ import com.kalis.beata.workmanager.models.Task;
 
 public class NewTaskActivity extends AppCompatActivity {
 
-
     private FloatingActionButton fabAddNewTask;
     EditText name;
     EditText desc;
     RatingBar ratingBar;
     DatePicker datePicker;
+
+    private FloatingActionButton fabAddNewTask;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,7 +52,6 @@ public class NewTaskActivity extends AppCompatActivity {
     public void initiateComponents() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         fabAddNewTask = (FloatingActionButton)findViewById(R.id.fabNewTask);
-      // addNewTask = (ImageButton)findViewById(R.id.taskImageButton);
     }
 
     private void setListeners() {
@@ -92,6 +93,10 @@ public class NewTaskActivity extends AppCompatActivity {
                 break;
             case R.id.action_settings:
                 break;
+            case R.id.help:
+                    Snackbar.make(getCurrentFocus(), "You can add new task!", Snackbar.LENGTH_LONG)
+                            .setAction("Action", null).show();
+
         }
         return true;
     }

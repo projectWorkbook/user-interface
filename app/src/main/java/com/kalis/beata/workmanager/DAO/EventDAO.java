@@ -54,7 +54,7 @@ public class EventDAO {
         values.put(DBHelper.EV_INFO, event.getInfo());
 
         if(event.getId()==0)
-            mDatabase.insert(DBHelper.TABLE_EVENTS, null, values);
+            event.setId(mDatabase.insert(DBHelper.TABLE_EVENTS, null, values));
         else
             mDatabase.update(DBHelper.TABLE_EVENTS,values,DBHelper.EV_ID + " = " + event.getId(),null);
 
@@ -94,7 +94,9 @@ public class EventDAO {
         if (cursor != null) {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
-                String eventDate = cursor.getString(2);
+                System.out.print("we are in cursor yolooo");
+                String eventDate = cursor.getString(cursor.getColumnIndex("start_date"));
+                System.out.print(eventDate);
 
                 if(date.equals(eventDate))
                 {
@@ -108,6 +110,7 @@ public class EventDAO {
         return listEvent;
     }
 
+  //  public List<Event> getbyDate()
     public List<Event> getEventsInDay(Date day) {
         List<Event> listEvent = new ArrayList<Event>();
 

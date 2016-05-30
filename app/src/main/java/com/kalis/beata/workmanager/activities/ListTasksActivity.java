@@ -2,6 +2,7 @@ package com.kalis.beata.workmanager.activities;
 
 import android.content.Intent;
 import android.support.design.widget.FloatingActionButton;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -66,7 +67,7 @@ public class ListTasksActivity extends AppCompatActivity {
                 Intent i = new Intent(ListTasksActivity.this, NewTaskActivity.class);
                 i.putExtra("task", task);
                 startActivity(i);
-            }
+          }
         });
     }
 
@@ -85,6 +86,9 @@ public class ListTasksActivity extends AppCompatActivity {
                 break;
             case R.id.action_settings:
                 break;
+            case R.id.help:
+                Snackbar.make(getCurrentFocus(), "List of your tasks!", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
         }
         return true;
     }

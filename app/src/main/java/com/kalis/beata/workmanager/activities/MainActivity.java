@@ -52,7 +52,6 @@ public class MainActivity extends AppCompatActivity
 
     public void initiateComponents() {
 
-       // DBHelper dbHelper = new DBHelper(this);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -123,7 +122,6 @@ public class MainActivity extends AppCompatActivity
     }
 
     public void createNewTask() {
-        System.out.println("cos");
         Intent i = new Intent(this, NewTaskActivity.class);
         startActivity(i);
     }
