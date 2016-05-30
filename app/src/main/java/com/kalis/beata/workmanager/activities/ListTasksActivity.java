@@ -6,21 +6,17 @@ import android.support.design.widget.Snackbar;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.kalis.beata.workmanager.DAO.TaskDAO;
 import com.kalis.beata.workmanager.R;
 import com.kalis.beata.workmanager.adapters.TaskAdapter;
-import com.kalis.beata.workmanager.database.DBHelper;
 import com.kalis.beata.workmanager.models.Task;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ListTasksActivity extends AppCompatActivity {
@@ -67,10 +63,21 @@ public class ListTasksActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Task task = (Task) tasksList.getItemAtPosition(position);
+                Intent i = new Intent(ListTasksActivity.this, TaskWorktimeActivity.class);
+                i.putExtra("task", task);
+                startActivity(i);
+            }
+        });
+
+        tasksList.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                Task task = (Task) tasksList.getItemAtPosition(position);
                 Intent i = new Intent(ListTasksActivity.this, NewTaskActivity.class);
                 i.putExtra("task", task);
                 startActivity(i);
-          }
+                return true;
+            }
         });
     }
 

@@ -26,7 +26,11 @@
         <activity android:name=".activities.ListTasksActivity" />
         <activity android:name=".activities.NewTaskActivity" />
         <activity android:name=".activities.NewEventActivity" />
-        <activity android:name=".activities.ListEventsActivity"></activity>
+        <activity android:name=".activities.ListEventsActivity" />
+        <activity
+            android:name=".activities.TaskWorktimeActivity"
+            android:label="@string/title_activity_task_worktime"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
     </application>
 
 </manifest>

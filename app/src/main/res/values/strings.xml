@@ -16,5 +16,6 @@
 
     <string name="title_activity_tabbed">TabbedActivity</string>
     <string name="title_activity_list_events">ListEventsActivity</string>
+    <string name="title_activity_task_worktime">TaskWorktimeActivity</string>
 
 </resources>
