@@ -1,5 +1,6 @@
 package com.kalis.beata.workmanager.activities;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -63,6 +64,9 @@ public class TabbedActivity extends AppCompatActivity {
         return true;
     }
 
+
+
+
     @Override
     public boolean onOptionsItemSelected(final MenuItem item) {
         switch (item.getItemId()) {
@@ -89,6 +93,10 @@ public class TabbedActivity extends AppCompatActivity {
     public static class PlaceholderFragment extends Fragment {
 
         private static final String ARG_SECTION_NUMBER = "section_number";
+        List<Task> taskList;
+        TaskAdapter taskAdapter;
+        ListView listView;
+        TaskDAO taskDAO;
 
         public PlaceholderFragment() {
         }
@@ -106,24 +114,25 @@ public class TabbedActivity extends AppCompatActivity {
         public View onCreateView(LayoutInflater inflater, ViewGroup container,
                                  Bundle savedInstanceState) {
             View rootView = inflater.inflate(R.layout.fragment_tabbed, container, false);
-            final ListView listView = (ListView)rootView.findViewById(R.id.listView);
+            listView = (ListView)rootView.findViewById(R.id.listView);
             TextView textView = (TextView) rootView.findViewById(R.id.section_label);
             FloatingActionButton fab = (FloatingActionButton)rootView.findViewById(R.id.fabAddNew);
 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
                 textView.setText("List of tasks: ");
-                TaskDAO taskDAO = new TaskDAO(getContext());
-                //TODO: pobrac z bazy danych taski po dacie a nie wszystkie
 
-                List<Task> taskList = taskDAO.getAllTasks();
-                TaskAdapter taskAdapter = new TaskAdapter(taskList);
+                //TODO: pobrac z bazy danych taski po dacie a nie wszystkie
+                taskDAO = new TaskDAO(getContext());
+                taskList = taskDAO.getAllTasks();
+                taskAdapter = new TaskAdapter(taskList);
                 listView.setAdapter(taskAdapter);
 
                 listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                        Task task = (Task) listView.getSelectedItem();
+                        Task task = (Task) listView.getItemAtPosition(position);
                         Intent i = new Intent(getContext(), NewTaskActivity.class);
+                        i.putExtra("task", task);
                         startActivity(i);
                     }
                 });
@@ -174,6 +183,20 @@ public class TabbedActivity extends AppCompatActivity {
         public void createNewTask() {
             Intent i = new Intent(getContext(), NewTaskActivity.class);
             startActivity(i);
+        }
+
+        private void refreshTaskList(){
+            taskDAO = new TaskDAO(getContext());
+            taskList = taskDAO.getAllTasks();
+            taskAdapter = new TaskAdapter(taskList);
+            listView.setAdapter(taskAdapter);
+        }
+
+        @Override
+        public void onResume(){
+            super.onResume();
+            refreshTaskList();
+
         }
     }
 

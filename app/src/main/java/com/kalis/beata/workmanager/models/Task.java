@@ -9,24 +9,30 @@ import java.io.Serializable;
 // model of task, only for tests
 public class Task implements Serializable {
 
-    private String mName;
     private long mID;
-    private float mDuration ; // czas trwania zadania
+    private String mName;
     private String mEndDate; // deadline - kiedy musimy wykonac zadanie
-    private String mEndTime; // czas zakonczenia zadania?
-    private int mProgress; // ile czasu juz przeznaczone na to zadanie
-    private int mState; // wykonane/niewykonane -> 1/0
+    private String mEndTime; // czas trwania zadania
     private String mInfo; // opis zadania
+
+    private float mDuration ;
+    private int mProgress;
+    private int mState;
+
 
 
     public Task() {
     }
 
-    public Task(String name, float duration, String endDate, String info) {
+    public Task(String name, String endDate, String endTime, String info) {
         this.mName = name;
-        this.mDuration = duration;
         this.mEndDate = endDate;
+        this.mEndTime = endTime;
         this.mInfo = info;
+
+        this.mDuration = 0;
+        this.mProgress = 0;
+        this.mState = 0;
     }
 
     public void setName(String name){

@@ -33,6 +33,7 @@ public class TaskDAO {
         }catch (SQLException e){
             e.printStackTrace();
         }
+
     }
 
     public void  open() throws SQLException {
@@ -51,11 +52,18 @@ public class TaskDAO {
         values.put(DBHelper.TS_INFO, task.getInfo());
         values.put(DBHelper.TS_DURATION, String.valueOf(task.getDuration()));
         values.put(DBHelper.TS_PROGRESS, task.getProgress());
+        values.put(DBHelper.TS_STATE, task.getState());
 
         if(task.getId()==0)
-          task.setId(mDatabase.insert(DBHelper.TABLE_TASKS, null, values));
+        {
+            task.setId(mDatabase.insert(DBHelper.TABLE_TASKS, null, values));
+        }
+
         else
-        mDatabase.update(DBHelper.TABLE_TASKS,values,DBHelper.TS_ID + " = " + task.getId(),null);
+        {
+            mDatabase.update(DBHelper.TABLE_TASKS,values,DBHelper.TS_ID + " = " + task.getId(),null);
+        }
+
 
     }
 
@@ -98,14 +106,14 @@ public class TaskDAO {
 
     protected Task cursorToTask(Cursor cursor) {
         Task task = new Task();
-        task.setId(cursor.getInt(0));
-        task.setEndDate(cursor.getString(1));
-        task.setEndTime(cursor.getString(2));
-        task.setProgress(cursor.getInt(3));
-        task.setName(cursor.getString(4));
-        task.setState(cursor.getInt(5));
-        task.setDuration(cursor.getFloat(6));
-        task.setInfo(cursor.getString(7));
+        task.setId(cursor.getInt(cursor.getColumnIndex(DBHelper.TS_ID)));
+        task.setEndDate(cursor.getString(cursor.getColumnIndex(DBHelper.TS_END_DATE)));
+        task.setEndTime(cursor.getString(cursor.getColumnIndex(DBHelper.TS_END_TIME)));
+        task.setProgress(cursor.getInt(cursor.getColumnIndex(DBHelper.TS_PROGRESS)));
+        task.setName(cursor.getString(cursor.getColumnIndex(DBHelper.TS_NAME)));
+        task.setState(cursor.getInt(cursor.getColumnIndex(DBHelper.TS_STATE)));
+        task.setDuration(cursor.getFloat(cursor.getColumnIndex(DBHelper.TS_DURATION)));
+        task.setInfo(cursor.getString(cursor.getColumnIndex(DBHelper.TS_INFO)));
         return task;
     }
 
