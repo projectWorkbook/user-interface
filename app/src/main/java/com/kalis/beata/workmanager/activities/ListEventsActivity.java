@@ -71,6 +71,7 @@ public class ListEventsActivity extends AppCompatActivity {
             case R.id.help:
                 Snackbar.make(getCurrentFocus(), "List of your events!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                break;
         }
         return true;
     }

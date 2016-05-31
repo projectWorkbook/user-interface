@@ -42,6 +42,7 @@ public class CalendarActivity extends AppCompatActivity {
             case R.id.help:
                 Snackbar.make(getCurrentFocus(), "Choose a day!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                break;
         }
         return true;
     }
@@ -62,7 +63,25 @@ public class CalendarActivity extends AppCompatActivity {
             @Override
             public void onSelectedDayChange(CalendarView view, int year, int month, int dayOfMonth) {
 
-                String data = dayOfMonth + "-" + (month + 1) + "-" + year;
+                int monthInt = (month + 1);
+                String data;
+                String mth;
+                String day;
+                if(monthInt < 10) {
+                    mth = "0"+monthInt;
+                }
+                else {
+                    mth = ""+monthInt;
+                }
+                if(dayOfMonth < 10) {
+                    day = "0"+ dayOfMonth;
+                }
+                else {
+                    day = "" + dayOfMonth;
+                }
+
+                data = day + "/" + mth + "/" + year;
+
                 openListView(data);
             }
         });

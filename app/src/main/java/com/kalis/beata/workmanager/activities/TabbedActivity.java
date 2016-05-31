@@ -86,6 +86,7 @@ public class TabbedActivity extends AppCompatActivity {
                     Snackbar.make(getCurrentFocus(), "Tasks and events of the next week", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
                 }
+                break;
 
         }
         return true;

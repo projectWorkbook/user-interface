@@ -37,6 +37,7 @@ public class NewEventActivity extends AppCompatActivity {
             case R.id.help:
                 Snackbar.make(getCurrentFocus(), "You can add new event!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                break;
         }
         return true;
     }

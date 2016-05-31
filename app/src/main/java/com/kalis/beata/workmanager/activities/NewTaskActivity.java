@@ -136,10 +136,10 @@ public class NewTaskActivity extends AppCompatActivity {
             case R.id.help:
                     Snackbar.make(getCurrentFocus(), "You can add new task!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+                break;
             case R.id.delete:
                 taskDAO.deleteTask(task);
                 Toast.makeText(this, "Task deleted", Toast.LENGTH_LONG).show();
-
                 onBackPressed();
                 break;
 

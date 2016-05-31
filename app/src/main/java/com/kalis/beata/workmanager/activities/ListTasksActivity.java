@@ -26,7 +26,7 @@ public class ListTasksActivity extends AppCompatActivity {
     private TaskDAO taskDAO;
     private ListView tasksList;
     private TaskAdapter taskAdapter;
-
+    private String data;
 
 
     @Override
@@ -43,13 +43,13 @@ public class ListTasksActivity extends AppCompatActivity {
     private void initiateComponents() {
         Bundle bundle = getIntent().getExtras();
 
-        String data = bundle.getString(CalendarActivity.KEY_DATE);
+        data = bundle.getString(CalendarActivity.KEY_DATE);
         ActionBar actionBar = getSupportActionBar();
         actionBar.setTitle(data);
         actionBar.setDisplayHomeAsUpEnabled(true);
         fab3 = (FloatingActionButton)findViewById(R.id.addTaskFab);
         taskDAO = new TaskDAO(this);
-        tasks = taskDAO.getAllTasks();
+        tasks = taskDAO.tasksByDate(data);
 
 
     }
@@ -85,7 +85,7 @@ public class ListTasksActivity extends AppCompatActivity {
     }
 
     private void refreshTaskList(){
-        tasks = taskDAO.getAllTasks();
+        tasks = taskDAO.tasksByDate(data);
         taskAdapter = new TaskAdapter(tasks);
         tasksList.setAdapter(taskAdapter);
     }
@@ -108,6 +108,7 @@ public class ListTasksActivity extends AppCompatActivity {
             case R.id.help:
                 Snackbar.make(getCurrentFocus(), "List of your tasks!", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                break;
         }
         return true;
     }
