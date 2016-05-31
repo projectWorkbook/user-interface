@@ -10,6 +10,7 @@
     <string name="events">Events</string>
     <string name="shares">Share</string>
     <string name="sends">Send</string>
+    <string name="delete">Delete</string>
 
     <string name="yourPanel">Dashboard</string>
     <string name="activity">Activity</string>
