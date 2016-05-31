@@ -17,6 +17,7 @@ import android.widget.Toast;
 import com.kalis.beata.workmanager.DAO.TaskDAO;
 import com.kalis.beata.workmanager.R;
 import com.kalis.beata.workmanager.models.Task;
+import com.kalis.beata.workmanager.tools.TimeConverter;
 
 import java.util.Calendar;
 
@@ -52,7 +53,7 @@ public class NewTaskActivity extends AppCompatActivity {
             desc.setText(task.getInfo());
             timePicker.setCurrentHour(Integer.parseInt(time[0]));
             timePicker.setCurrentMinute(Integer.parseInt(time[1]));
-            datePicker.updateDate(Integer.parseInt(data[2]), Integer.parseInt(data[1])-1, Integer.parseInt(data[0]));
+            datePicker.updateDate(Integer.parseInt(data[2]), Integer.parseInt(data[1]) - 1, Integer.parseInt(data[0]));
 
         }
 
@@ -78,7 +79,7 @@ public class NewTaskActivity extends AppCompatActivity {
 
                 int hour = timePicker.getCurrentHour();
                 int minute = timePicker.getCurrentMinute();
-                String time = hour+":"+minute;
+                String time = TimeConverter.timeInString(hour * 3600000 + minute * 60000);
 
                 TaskDAO taskDAO = new TaskDAO(getApplicationContext());
                 if(task == null ) {

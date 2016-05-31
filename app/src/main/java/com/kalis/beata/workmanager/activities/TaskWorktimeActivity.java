@@ -7,6 +7,7 @@ import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -31,6 +32,7 @@ public class TaskWorktimeActivity extends AppCompatActivity {
 
     private MyCountDownTimer timer;
     private Handler handler = new Handler();
+    private String time;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,6 +47,8 @@ public class TaskWorktimeActivity extends AppCompatActivity {
     private void initializeComponents(){
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
 
         countdownManager = (Button) findViewById(R.id.CountdownButton);
         stopWorking = (Button) findViewById(R.id.endWorkButton);
@@ -54,13 +58,14 @@ public class TaskWorktimeActivity extends AppCompatActivity {
         taskTime = (TextView) findViewById(R.id.WorktimeTaskTimer);
 
         task = (Task)getIntent().getSerializableExtra("task");
-        //String time = task.getEndTime();  //Docelowo
-        String time = "00:30:00";
+        time = task.getEndTime();
         remainingTime = TimeConverter.timeInMillis(time);
 
         taskName.setText(task.getName());
         taskInfo.setText(task.getInfo());
         taskTime.setText(time);
+
+        setTitle(task.getEndDate());
 
     }
 
@@ -75,10 +80,9 @@ public class TaskWorktimeActivity extends AppCompatActivity {
         stopWorking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                TaskDAO taskDAO = new TaskDAO(getApplicationContext());
-                task.setEndTime("00:00:00");
+
+                taskTime.setText("00:00:00");
                 task.setState(1);
-                taskDAO.saveTask(task);
                 onBackPressed();
             }
         });
@@ -89,7 +93,7 @@ public class TaskWorktimeActivity extends AppCompatActivity {
         public void run() {
             if (countdownManager.getText().equals("Start")) {
 
-                timer = new MyCountDownTimer(remainingTime, 1000);
+                timer = new MyCountDownTimer(remainingTime, 500);
                 timer.start();
                 countdownManager.setText("Pause");
 
@@ -125,4 +129,24 @@ public class TaskWorktimeActivity extends AppCompatActivity {
         }
     }
 
+    @Override
+    public boolean onOptionsItemSelected(final MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                onBackPressed();
+                break;
+        }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed(){
+        if(countdownManager.getText().equals("Pause")){
+            timer.cancel();
+        }
+        TaskDAO taskDAO = new TaskDAO(getApplicationContext());
+        task.setEndTime(taskTime.getText().toString());
+        taskDAO.saveTask(task);
+        super.onBackPressed();
+    }
 }
