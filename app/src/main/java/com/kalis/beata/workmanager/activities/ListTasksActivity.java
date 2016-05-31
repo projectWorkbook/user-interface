@@ -51,6 +51,7 @@ public class ListTasksActivity extends AppCompatActivity {
         taskDAO = new TaskDAO(this);
         tasks = taskDAO.getAllTasks();
 
+
     }
 
     private void setListView(){

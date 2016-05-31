@@ -91,9 +91,6 @@ public class MainActivity extends AppCompatActivity
         PanelAdapter panelAdapter = new PanelAdapter(menu);
         gridView.setAdapter(panelAdapter);
 
-       /// Event e = new Event("obiad" , "dom", "12/02/2014" , "9:03" , "15/02/2014" , "9:05" , "gotowanie");
-      //  EventDAO eventDAO = new EventDAO(this);
-      //  eventDAO.saveEvent(e);
 
     }
 
