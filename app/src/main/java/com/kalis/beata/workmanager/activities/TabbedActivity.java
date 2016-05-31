@@ -131,9 +131,20 @@ public class TabbedActivity extends AppCompatActivity {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Task task = (Task) listView.getItemAtPosition(position);
+                        Intent i = new Intent(getContext(), TaskWorktimeActivity.class);
+                        i.putExtra("task", task);
+                        startActivity(i);
+                    }
+                });
+
+                listView.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+                    @Override
+                    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                        Task task = (Task) listView.getItemAtPosition(position);
                         Intent i = new Intent(getContext(), NewTaskActivity.class);
                         i.putExtra("task", task);
                         startActivity(i);
+                        return true;
                     }
                 });
 

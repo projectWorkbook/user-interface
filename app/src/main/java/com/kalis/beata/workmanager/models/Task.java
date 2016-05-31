@@ -9,9 +9,6 @@ import java.io.Serializable;
 // model of task, only for tests
 public class Task implements Serializable {
 
-    private String mName; //+
-
-	
     private long mID;
     private String mName;
     private String mEndDate; // deadline - kiedy musimy wykonac zadanie
