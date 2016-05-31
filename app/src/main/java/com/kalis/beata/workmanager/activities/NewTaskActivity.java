@@ -28,8 +28,9 @@ public class NewTaskActivity extends AppCompatActivity {
     private EditText name;
     private EditText desc;
     private TimePicker timePicker;
-    private  DatePicker datePicker;
+    private DatePicker datePicker;
     private Task task;
+    private TaskDAO taskDAO;
 
 
     @Override
@@ -65,6 +66,7 @@ public class NewTaskActivity extends AppCompatActivity {
     public void initiateComponents() {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         fabAddNewTask = (FloatingActionButton)findViewById(R.id.fabNewTask);
+        taskDAO = new TaskDAO(getApplicationContext());
     }
 
     private void setListeners() {
@@ -81,7 +83,7 @@ public class NewTaskActivity extends AppCompatActivity {
                 int minute = timePicker.getCurrentMinute();
                 String time = TimeConverter.timeInString(hour * 3600000 + minute * 60000);
 
-                TaskDAO taskDAO = new TaskDAO(getApplicationContext());
+
                 if(task == null ) {
                     Task t = new Task(name.getText().toString(), date, time, desc.getText().toString());
                     taskDAO.saveTask(t);
@@ -122,6 +124,12 @@ public class NewTaskActivity extends AppCompatActivity {
             case R.id.help:
                     Snackbar.make(getCurrentFocus(), "You can add new task!", Snackbar.LENGTH_LONG)
                             .setAction("Action", null).show();
+            case R.id.delete:
+                taskDAO.deleteTask(task);
+                Toast.makeText(this, "Task deleted", Toast.LENGTH_LONG).show();
+
+                onBackPressed();
+                break;
 
         }
         return true;

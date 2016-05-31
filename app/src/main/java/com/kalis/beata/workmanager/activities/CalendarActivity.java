@@ -14,7 +14,6 @@ import com.kalis.beata.workmanager.R;
 public class CalendarActivity extends AppCompatActivity {
 
     public final static String KEY_DATE = "data";
-    public final static String KEY_TABLE = "table";
     private String tableName;
     private Bundle bundle;
 

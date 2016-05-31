@@ -80,6 +80,8 @@ public class ListTasksActivity extends AppCompatActivity {
                 return true;
             }
         });
+
+
     }
 
     private void refreshTaskList(){
