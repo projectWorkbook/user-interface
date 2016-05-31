@@ -90,6 +90,25 @@ public class TaskDAO {
         return listTask;
     }
 
+    public List<Task> tasksByDate(String date){
+        List<Task> listTask = new ArrayList<Task>();
+        String []columns = {DBHelper.EV_END_DATE};
+        Cursor cursor = mDatabase.query(DBHelper.TABLE_TASKS, null, DBHelper.TS_END_DATE
+        + " = ?", new String[] {date}, null, null, null);
+
+        if (cursor != null) {
+            cursor.moveToFirst();
+            while (!cursor.isAfterLast()) {
+                Task task = cursorToTask(cursor);
+                listTask.add(task);
+                cursor.moveToNext();
+            }
+            cursor.close();
+        }
+
+        return listTask;
+    }
+
     public Task getTaskById(int id) {
         Cursor cursor = mDatabase.query(DBHelper.TABLE_TASKS, mAllColumns,
                 DBHelper.TS_ID + " = ?",

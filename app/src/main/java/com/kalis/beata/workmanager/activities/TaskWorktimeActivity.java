@@ -23,8 +23,11 @@ public class TaskWorktimeActivity extends AppCompatActivity {
 
     private Task task;
     private Toolbar toolbar;
+
     private Button countdownManager;
     private Button stopWorking;
+    private Button finishWorkingButton;
+
     private TextView taskName;
     private TextView taskInfo;
     private TextView taskTime;
@@ -52,6 +55,7 @@ public class TaskWorktimeActivity extends AppCompatActivity {
 
         countdownManager = (Button) findViewById(R.id.CountdownButton);
         stopWorking = (Button) findViewById(R.id.endWorkButton);
+        finishWorkingButton = (Button) findViewById(R.id.finishWorkButton);
 
         taskName = (TextView) findViewById(R.id.WorktimeTaskName);
         taskInfo = (TextView) findViewById(R.id.WorktimeTaskInfo);
@@ -80,7 +84,13 @@ public class TaskWorktimeActivity extends AppCompatActivity {
         stopWorking.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                onBackPressed();
+            }
+        });
 
+        finishWorkingButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 taskTime.setText("00:00:00");
                 task.setState(1);
                 onBackPressed();

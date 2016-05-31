@@ -12,7 +12,6 @@ public class DBHelper extends SQLiteOpenHelper {
     public static final String DATABASE_NAME = "Planner.db";
     public static final int DATABASE_VERSION = 1;
 
-
     public static final String TABLE_EVENTS = "events_table";
     public static final String EV_ID = "id";
     public static final String EV_PLACE = "event_place";

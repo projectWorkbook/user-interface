@@ -29,6 +29,7 @@ import com.kalis.beata.workmanager.models.Event;
 import com.kalis.beata.workmanager.models.MenuOption;
 import com.kalis.beata.workmanager.models.Task;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -122,8 +123,13 @@ public class TabbedActivity extends AppCompatActivity {
                 textView.setText("List of tasks: ");
 
                 //TODO: pobrac z bazy danych taski po dacie a nie wszystkie
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+                String date = formatter.format(new Date());
                 taskDAO = new TaskDAO(getContext());
-                taskList = taskDAO.getAllTasks();
+                taskList = taskDAO.tasksByDate(date);
+
+                //taskList = taskDAO.getAllTasks();
+
                 taskAdapter = new TaskAdapter(taskList);
                 listView.setAdapter(taskAdapter);
 

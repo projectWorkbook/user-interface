@@ -72,10 +72,22 @@ public class NewTaskActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                String dayStr = "";
+                String monthStr = "";
                 int day = datePicker.getDayOfMonth();
+                if(day < 10){
+                    dayStr = "0" + day;
+                }else{
+                    dayStr = String.valueOf(day);
+                }
                 int month = datePicker.getMonth() + 1;
+                if(month < 10){
+                    monthStr = "0" + month;
+                }else{
+                    monthStr = String.valueOf(month);
+                }
                 int year = datePicker.getYear();
-                String date = day+"/"+month+"/"+year;
+                String date = dayStr+"/"+monthStr+"/"+year;
 
                 int hour = timePicker.getCurrentHour();
                 int minute = timePicker.getCurrentMinute();
