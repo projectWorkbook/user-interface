@@ -9,6 +9,7 @@ import android.widget.TextView;
 import com.kalis.beata.workmanager.R;
 import com.kalis.beata.workmanager.models.Task;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -16,7 +17,7 @@ import java.util.List;
  */
 public class TaskAdapter  extends BaseAdapter {
 
-    private List<Task> tasks;
+    private List<Task> tasks = new ArrayList<Task>();
 
     public TaskAdapter(List<Task> array) {
         tasks = array;

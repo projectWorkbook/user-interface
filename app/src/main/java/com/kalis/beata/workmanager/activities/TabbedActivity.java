@@ -30,6 +30,7 @@ import com.kalis.beata.workmanager.models.MenuOption;
 import com.kalis.beata.workmanager.models.Task;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -121,14 +122,23 @@ public class TabbedActivity extends AppCompatActivity {
 
             if(getArguments().getInt(ARG_SECTION_NUMBER) == 1) {
                 textView.setText("List of tasks: ");
-
-                //TODO: pobrac z bazy danych taski po dacie a nie wszystkie
                 SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
                 String date = formatter.format(new Date());
-                taskDAO = new TaskDAO(getContext());
-                taskList = taskDAO.tasksByDate(date);
 
-                //taskList = taskDAO.getAllTasks();
+                taskDAO = new TaskDAO(getContext());
+                if(TabbedActivity.menuOption.getName().equals("Today")) {
+                    taskList = taskDAO.tasksByDate(date);
+                }
+                else {
+                    //TODO: pobrac z bazy taski na przyszly tydzien
+                    Calendar c = Calendar.getInstance();
+                    c.add(Calendar.DATE,7);
+                    Date datee = c.getTime();
+                    String date2 = formatter.format(datee);
+                    // jakas metoda co bierze date oraz date2
+
+                    taskList = taskDAO.getAllTasks();
+                }
 
                 taskAdapter = new TaskAdapter(taskList);
                 listView.setAdapter(taskAdapter);
@@ -165,21 +175,14 @@ public class TabbedActivity extends AppCompatActivity {
 
             else {
                 textView.setText("List of events: ");
-                //TODO: pobrac z bazy danych eventy po dacie
-                List<Event> events;
-                EventDAO eventDAO = new EventDAO(getContext());
+
                 if(TabbedActivity.menuOption.equals("Today")) {
-                   // events = eventDAO.getEventsInDay(new Date());
-                    events = eventDAO.getAllEvents();
+                    //TODO: pobrac z bazy danych eventy po dacie
                 }
                 else
                 {
                     //TODO: pobrac z bazy eventy z przyszlego tygodnia
-                   // events = eventDAO.getEventsInDay(new Date());
-                    events = eventDAO.getAllEvents();
-                }
-                EventAdapter eventAdapter = new EventAdapter(events);
-                listView.setAdapter(eventAdapter);
+              }
                 fab.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View v) {
@@ -203,8 +206,20 @@ public class TabbedActivity extends AppCompatActivity {
         }
 
         private void refreshTaskList(){
+            SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy");
+            String date = formatter.format(new Date());
             taskDAO = new TaskDAO(getContext());
-            taskList = taskDAO.getAllTasks();
+
+            if(TabbedActivity.menuOption.getName().equals("Today")) {
+                taskList = taskDAO.tasksByDate(date);
+                System.out.println("Today");
+            }
+            else {
+                System.out.println("not today");
+                taskList = taskDAO.getAllTasks();
+                //TODO: pobrac z bazy taski na przyszly tydzien
+            }
+
             taskAdapter = new TaskAdapter(taskList);
             listView.setAdapter(taskAdapter);
         }

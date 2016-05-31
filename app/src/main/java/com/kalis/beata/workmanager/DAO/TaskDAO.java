@@ -92,7 +92,7 @@ public class TaskDAO {
 
     public List<Task> tasksByDate(String date){
         List<Task> listTask = new ArrayList<Task>();
-        String []columns = {DBHelper.EV_END_DATE};
+        String []columns = {DBHelper.TS_END_DATE};
         Cursor cursor = mDatabase.query(DBHelper.TABLE_TASKS, null, DBHelper.TS_END_DATE
         + " = ?", new String[] {date}, null, null, null);
 
@@ -100,6 +100,7 @@ public class TaskDAO {
             cursor.moveToFirst();
             while (!cursor.isAfterLast()) {
                 Task task = cursorToTask(cursor);
+                System.out.println("w cursorze: "+ task.getEndDate());
                 listTask.add(task);
                 cursor.moveToNext();
             }
